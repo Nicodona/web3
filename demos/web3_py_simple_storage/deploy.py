@@ -55,15 +55,29 @@ SimpleStorage = w3.eth.contract(abi=abi, bytecode=bytecode)
 
 #Get latest transaction count
 
-nounce = w3.eth.get_transaction_count(my_address)
+nonce = w3.eth.get_transaction_count(my_address)
 
 #create a transaction
-transaction = SimpleStorage.constructor().build_transaction({"chainId":chain_id, "from": my_address, "nounce": nounce})
+transaction = SimpleStorage.constructor().build_transaction({"chainId":chain_id, "from": my_address, "nonce": nonce})
 
 #signed trx
 signed_txn = w3.eth.account.sign_transaction(transaction, private_key=private_key)
-print(signed_txn)
+# print(signed_txn)
 
 #send txn
 tx_hash = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
-#tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+#wait for block confirmation, make our code wait
+tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+
+
+#working with contract
+
+simple_storage = w3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
+# call -> getting a return Value
+# transact -> make a state change to the blockchain
+
+
+# initial_value of call function
+print(simple_storage.functions.retrieve().call())
+
+print(simple_storage.functions.store(15).call())

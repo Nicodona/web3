@@ -14,8 +14,9 @@ contract SimpleStorage {
 
     mapping(string => uint) public nameToNum;
 
-    function store(uint256 _myNum) public {
+    function store(uint256 _myNum) public returns (uint256) {
         myNum = _myNum;
+        return _myNum;
     }
 
     function retrieve() public view returns (uint256) {
