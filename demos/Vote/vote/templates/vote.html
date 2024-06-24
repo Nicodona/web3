@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Interface</title>
+    <link rel="stylesheet" href="{% static 'styles/vote.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="display">
+            <h1 style="color: #fff; font-size: 21px; padding: 10px 35px 100px 35;">:: Welcome to EVS Powered by
+                Blockchain ::
+            </h1>
+            <h2 style="text-align: center;"><span style="color: #932020">NAHPISA</span> ELECTION <span
+                    style="color:#932020">2025</span></h2> <br>
+            <h2 class="message"> {{ message }}</h2>
+            <div class="header">
+                <div class="party blue">Blue Party :<br>{{ blue_candidate.votes }} </div>
+                <div class="party white">White Party : <br> {{ white_candidate.votes }}</div>
+                <div class="party yellow">Yellow Party : <br>{{ yellow_candidate.votes }}</div>
+            </div>
+            <div class="message" id="message">Please scan your finger your party's sensor to vote</div>
+
+            <div class="qr-code">
+                <div class="qr-img"></div>
+                <div class="qr-text">Scan QR code for help</div>
+
+            </div>
+        </div>
+        <div class="vote-options">
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="name" value="blue">
+                <input type="hidden" name="key" id="binput">
+                <button type="submit" class="option blue-option" style="border: none; background-color: transparent;">
+                    <div class="option blue-option" id="blue-option">
+                        <div class="fingerprint"></div>
+                        <div class="vote-text">Vote for blue</div>
+                    </div>
+                </button>
+            </form>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="name" value="white">
+                <input type="hidden" name="key" id="winput">
+                <button type="submit" class="option white-option" style="border: none; background-color: transparent;">
+                    <div class="option white-option" id="white-option">
+                        <div class="fingerprint"></div>
+                        <div class="vote-text">Vote for white</div>
+                    </div>
+                </button>
+            </form>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="name" value="yellow">
+                <input type="hidden" name="key" id="yinput">
+                <button type="submit" class="option yellow-option" style="border: none; background-color: transparent;">
+                    <div class="option yellow-option" id="yellow-option">
+                        <div class="fingerprint"></div>
+                        <div class="vote-text">Vote for yellow</div>
+                    </div>
+                </button>
+            </form>
+        </div>
+        <div class="private-key">
+            <label for="private-key-input">Enter Private key:</label>
+            <input type="text" id="input1">
+            <button id="form1">Submit</button>
+        </div>
+    </div>
+    <script src="{% static 'js/voter.js' %}"></script>
+</body>
+
+</html>

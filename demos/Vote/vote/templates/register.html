@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Interface</title>
+    <link rel="stylesheet" href="{% static 'styles/vote.css' %}">
+</head>
+
+<body>
+    {% for message in messages %}
+    <div style="color: orange; text-align: center;">
+        <p id="hiddenP">{{message}}</p>
+    </div>
+    {% endfor %}
+
+    <div class="container" style="border-radius:20px; padding: 0 10px; background-color: #303029; margin: 0 40px">
+        <div class="display">
+            <h1 style="color: #fff; font-size: 21px; padding: 10px 35px 100px 35;">:: Welcome to EVS Powered by
+                Blockchain ::
+            </h1>
+            <h2 style="text-align: center;"><span style="color: #932020">NAHPISA</span> ELECTION <span
+                    style="color:#932020">2025</span><br><span style="color:#ffff"> REGISTRATION</span></h2>
+            </h2>
+
+        </div>
+        <div class="message" style="margin: 0 0 0 0" id="message">Please scan your finger your party's sensor to vote
+        </div>
+        <form class="private-key" style="align-items: center; padding: 20px 0 20px 0; color:aliceblue" method="post">
+            {% csrf_token %}
+            <div style="align-items: center; padding: 7px 0;">
+                <label for="voter_name">Voter Full Name:</label>
+                <input type="text" id="voter_name" name="name" style="margin: 0 0 0 75px"><br>
+            </div>
+            <div style="align-items: center;color:aliceblue; padding: 7px  0;">
+                <label for="Nid">Voter NID Number:</label>
+                <input type="text" id="Nid" name="Nid" style="margin: 0 0 0 60px"><br>
+            </div>
+            <div style="align-items:center; color:aliceblue; center; padding: 7px 0;">
+                <label for="Reg_center">Election Center Number:</label>
+                <input type="text" id="Reg_center" name="center" style="margin: 0 0 0 20px">
+            </div>
+            <br><br>
+            <button id="submit-button" disabled>Submit</button>
+        </form>
+    </div>
+    </div>
+    <div class="vote-options">
+        <div class="option blue-option" id="blue-option">
+            <div class="fingerprint"></div>
+            <div class="vote-text">Vote for blue</div>
+        </div>
+        <script src="{% static 'js/voter.js' %}"></script>
+</body>
+
+</html>
